@@ -1,0 +1,102 @@
+version: "2.0"
+
+intents:
+  - reserve
+  - number
+  - section
+  - reserve_time
+  - faq_timimgs:
+      use_entities: ['time']
+  - faq_open_days:
+      use_entities: ['time']
+  - faq_specials
+  - cancel_reservation
+  - out_of_scope
+  - greet
+
+entities:
+  - number
+  - section
+  - time
+
+slots:
+  section:
+    type: text
+    influence_conversation: false
+  number:
+    type: text
+    influence_conversation: false
+  time: 
+    type: text
+    auto_fill: False
+    influence_conversation: false
+
+forms:
+  booking_form:
+    ignored_intents: 
+      faq_open_days
+      faq_timimgs
+      reserve
+      cancel_reservation
+    required_slots:
+      section:
+        - type: from_entity
+          entity: section
+      number:
+        - type: from_entity
+          entity: number
+          intent: [number,reserve_time,section]
+      time: 
+        - type: from_entity
+          entity: time
+          intent: [number,reserve_time,section]
+
+responses:
+  utter_num_people:
+  - text: "How many seats would you like to reserve?"
+  utter_ask_section:
+    - text: "Which section would you like to book"
+      buttons:
+      - title: "AC"
+        payload: 'AC'
+      - title: "Non-AC"
+        payload: 'Non-AC'
+  utter_timings:
+  - text: "When would you like to book a reservation? (We are only open from 7pm to 10pm)"
+  utter_confirmation:
+  - text: "You have reserved {num_people} seat(s) in our {section} section for {time}. Thanks!"
+
+  utter_rest_not_open:
+  - text: "We are not open at that time. We are only open from 7pm to 10pm"
+  utter_open_days:
+  - text: "The restaurant is open each and every day."
+  utter_open_timings:
+  - text: "The restaurant opens at 7pm and closes at 10pm."
+  utter_cancellation:
+  - text: "To cancel a reservation, simply call us at +91 9876543210 and cancel your reservation."
+  utter_specials:
+  - text: "Our chef is a master of the Italian cuisine. Our core speciality is our pasta, which is renowned throughout the city."
+
+  utter_flow1_confirm:
+  - text: "You have reserved {num_people} seats in our {section} section for 7:30pm. Thanks!"
+  utter_flow2_confirm:
+  - text: "You have reserved {num_people} seats in our {section} section for 7:30pm. Thanks!"
+  utter_bonus_confirm:
+  - text: "You have reserved {num_people} seats in our {section} section for 8pm. Thanks!"
+
+
+actions:
+  - action_submit
+  - validate_booking_form
+  - utter_num_people
+  - utter_ask_section
+  - utter_confirmation
+  - utter_rest_not_open
+  - utter_open_days
+  - utter_open_timings
+  - utter_cancellation
+  - utter_specials
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
