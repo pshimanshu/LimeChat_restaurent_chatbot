@@ -1,0 +1,38 @@
+version: "2.0"
+
+stories:
+
+- story: flow1
+  steps:
+  - intent: reserve
+  - action: utter_num_people
+  - intent: number
+  - action: utter_table_type
+  - intent: table_type
+  - action: utter_timings
+  - intent: reserve_time
+  - action: utter_confirmation
+  
+- story: flow2
+  steps:
+  - intent: number
+  - action: utter_table_type
+  - intent: table_type
+  - action: utter_timings
+  - intent: reserve_time
+  - action: utter_rest_not_open
+  - action: utter_timings
+  - intent: reserve_time
+  - action: utter_confirmation
+
+- story: bonus
+  steps:
+  - intent: number
+  - action: utter_table_type
+  - intent: table_type
+  - action: utter_timings
+  - intent: faq_open_days
+  - action: utter_open_days
+  - action: utter_timings
+  - intent: reserve_time
+  - action: utter_confirmation

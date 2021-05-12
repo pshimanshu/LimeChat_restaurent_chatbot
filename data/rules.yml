@@ -1,0 +1,100 @@
+version: "2.0"
+
+rules:
+
+# - rule: Query AC or non-AC
+#   steps:
+#   - intent: reserve_with_num
+#   - action: query_AC/non-AC
+
+# - rule: Query AC or non-AC
+#   steps:
+#   - intent: seats_count
+#   - action: query_AC/non-AC
+
+- rule: Activate form
+  steps:
+  - intent: reserve
+  - action: booking_form
+  - active_loop: booking_form
+
+- rule: Activate form
+  steps:
+  - intent: section
+  - action: booking_form
+  - active_loop: booking_form
+
+- rule: Activate form
+  steps:
+  - intent: number
+  - action: booking_form
+  - active_loop: booking_form
+
+- rule: Activate form
+  steps:
+  - intent: reserve_time
+  - action: booking_form
+  - active_loop: booking_form
+
+- rule: Submit form
+  condition:
+  - active_loop: booking_form
+  steps:
+  - action: booking_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit
+  wait_for_user_input: true
+  
+- rule: question in middle
+  condition:
+  - active_loop: booking_form
+  steps:
+  - intent: cancel_reservation
+  - action: utter_cancellation
+  - action: booking_form
+  - active_loop: booking_form
+  wait_for_user_input: false
+
+# - rule: question in middle
+#   condition:
+#   - active_loop: booking_form
+#   steps:
+#   - intent: reserve
+#   - action: utter_happy
+#   - action: booking_form
+#   - active_loop: booking_form
+#   wait_for_user_input: false
+
+
+- rule: question in middle 
+  condition:
+  - active_loop: booking_form 
+  steps:
+  - intent: faq_open_days
+  - action: utter_open_days
+  - action: booking_form
+  - active_loop: booking_form
+  wait_for_user_input: false
+
+
+- rule: timing
+  steps:
+  - intent: faq_timimgs
+  - action: utter_open_timings
+
+- rule: days
+  steps:
+  - intent: faq_open_days
+  - action: utter_open_days
+
+- rule: special
+  steps:
+  - intent: faq_specials
+  - action: utter_specials
+
+- rule: cancel
+  steps:
+  - intent: cancel_reservation
+  - action: utter_cancellation
