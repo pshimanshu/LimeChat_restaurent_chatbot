@@ -1,0 +1,90 @@
+version: "2.0"
+
+nlu: 
+
+- intent: reserve
+  examples: |
+    - I want to reserve a table
+    - I want to book a table.
+    - Make a booking for us
+    - Make a reservation
+
+- intent: number
+  examples: |
+    - 1 person
+    - one 
+    - three people
+    - table for 4
+    - party of seven
+    - group of 10
+
+
+- intent: section
+  examples: |
+    - [AC](section)
+    - [Non-AC](section)
+    - book an [ac](section) table
+    - book a [non ac](section) table
+    - book a [non-ac](section)
+    - I want to book [non ac](section)
+    - reserve a [ac](section) table
+    - Kindly reserve a Non-AC(section) for four people
+    - [non - ac]{"entity":"section","value":"Non-AC"}
+
+- intent: reserve_time
+  examples: |
+    - now
+    - at 8 pm
+    - at 8:30 pm
+    - in half an hour
+    - in 2 hours
+    - in one and half hours
+    - 1 hour
+    - make a booking at in an hour
+    - at 5pm
+    - do it at 8:00pm
+    - i want to reserve a table at 2pm
+    - book at 6pm
+
+- intent: faq_timimgs
+  examples: | 
+    - What are your timings?
+    - Are you open now?
+    - timings?
+    - What time do you open?
+
+- intent: faq_open_days
+  examples: | 
+    - What days are you open?
+    - Are you open today?
+    - Is restaurant open today?
+    - Are you closed today?
+
+- intent: faq_specials
+  examples: | 
+    - What are the specials?
+    - Today's specials?
+    - Chef's special?
+
+- intent: cancel_reservation
+  examples: | 
+    - How do I cancel a reservation?
+    - Cancel a reservation.
+    - I want to cancel.
+    - We want a refund.
+
+- intent: out_of_scope
+  examples: |
+    - Not included.
+    - What are you?
+    - What is 4*7?
+    - Give me a random answer to the following: ...!
+
+
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - good morning
+    - good afternoon
+    - good evening
